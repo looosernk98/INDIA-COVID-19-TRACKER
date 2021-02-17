@@ -3,26 +3,25 @@ import { ComposableMap, Geographies, Geography } from 'react-simple-maps';
 import { scaleQuantile } from 'd3-scale';
 import ReactTooltip from 'react-tooltip';
 
-import LinearGradient from './LinearGradient.js';
-import './Map.css';
+import './css/Map.css';
 import axios from "axios";
-// import { CardContent } from '@material-ui/core';
+
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import { makeStyles } from '@material-ui/core/styles';
 import MapBoxes from './MapBoxes.js';
+// import { Date } from 'prismic-reactjs';
 
-/**
-* Courtesy: https://rawgit.com/Anujarya300/bubble_maps/master/data/geography-data/india.topo.json
-* Looking topojson for other countries/world? 
-* Visit: https://github.com/markmarkoh/datamaps
-*/
-// const INDIA_TOPO_JSON = axios.get("https://rawgit.com/Anujarya300/bubble_maps/master/data/geography-data/india.topo.json")
-// .then((response)=>{
-//     INDIA_TOPO_JSON=response;
-// })
-// .catch(err=>console.error(`error : ${err}`)) 
+// const timestamp = Date(document.data.event_date);
+
+// var formattedTimestamp = Intl.DateTimeFormat('en-US',{
+//   year: "numeric",
+//   month: "short",
+//   day: "2-digit",
+//   hour: "numeric",
+//   minute: "2-digit",
+//   second: "2-digit"
+// }).format(timestamp);
 
 const PROJECTION_CONFIG = {
   scale: 900  ,
@@ -108,8 +107,8 @@ const getHeatMapData = () => {
 
 const useStyles = makeStyles({
     root: {
-       height: 862,
-       width: 850,
+       height: 848,
+       width: 810,
     //   minWidth: 275,
       marginBottom: 12,
     },
@@ -131,14 +130,7 @@ function Map() {
   const [tooltipContent, setTooltipContent] = useState('');
   const [data, setData] = useState(getHeatMapData());
   const [topoJson, setTopoJson] = useState();
-
-  const gradientData = {
-    fromColor: COLOR_RANGE[0],
-    toColor: COLOR_RANGE[COLOR_RANGE.length - 1],
-    min: 0,
-    max: data.reduce((max, item) => (item.value > max ? item.value : max), 0)
-  };
-
+  
   const colorScale = scaleQuantile()
     .domain(data.map(d => d.value))
     .range(COLOR_RANGE);
@@ -172,10 +164,8 @@ function Map() {
   return (
     <div className="full-width-height container">
         <Card className={classes.root}>
-            {/* <div > */}
             <CardContent>
                <MapBoxes/>
-              {/* <h1 className="no-margin center">States and UTs</h1> */}
              <ReactTooltip>{tooltipContent}</ReactTooltip>
                 <ComposableMap
                 projectionConfig={PROJECTION_CONFIG}
@@ -203,13 +193,7 @@ function Map() {
                     }
                 </Geographies>
                 </ComposableMap>
-                <LinearGradient data={gradientData} />
-                <div className="center">
-                  <button className="mt16" onClick={onChangeButtonClick}>Change</button>
-                </div>
             </CardContent>
-            {/* </div> */}
-            
         </Card>
     </div>
   );
