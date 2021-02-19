@@ -40,7 +40,7 @@ export default function SimpleAccordion() {
         </AccordionSummary>
         <AccordionDetails>
           <Typography className={classes.typo}>
-             I tried my best in given time.I did not understand where the 2nd Api data has used in given assignment That's why
+             I tried my best in given time.I did not understand where the 2nd Api data has been used in given assignment That's why
              I have not used 2nd Api.Some functionality in the assignment was really challenging .I have not implemented some of functionality because 
              I found that difficult and time taking but ofcourse not impossible . As there was a time constraint I tried my best.
           </Typography>
